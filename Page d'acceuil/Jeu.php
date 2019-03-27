@@ -10,8 +10,10 @@
 		<title>Jeu</title>
 		<meta name="author" content="Losciale-Verdille">
 		<meta name="viewport" content="width=device-width; initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src="script.js"></script>
 	</head>
 	<body>
-		<p><?php echo $_SESSION["joueur"]; ?></p>
+		<div id=jeu></div>
 	</body>
 </html>
