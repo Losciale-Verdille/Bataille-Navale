@@ -11,7 +11,8 @@
 	</head>
 	<body>
 	<h1>Bataille Navale</h1>
-	<hr>
+	<br>
+	<h2>Commencer une partie</h2>
 	<form action="Jeu.php" method="post">
 		Nom du joueur :
 		<br>
