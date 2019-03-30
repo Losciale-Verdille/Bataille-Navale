@@ -31,7 +31,6 @@ let cpt = 0;
 		if (edition) {
 			if (cpt == 0) {
 				document.getElementById(id).innerHTML="5"; //à titre indicatif, pour dev
-				document.getElementById(id).style.backgroundColor = "green";
 				orientation(id,5);
 			}			
 			if (cpt == 1) {
