@@ -87,6 +87,7 @@ let cpt = 0;
 			choix[i].onclick = function() {
 				for (let j=0; j<choix.length; j++) {//efface les choix non selectionnés
 					choix[j].innerHTML = null;
+					choix[j].onclick = function() {jouer(this.getAttribute("id"));};
 				}
 				if (this.getAttribute("id")==droite) orientation = "droite";
 				if (this.getAttribute("id")==gauche) orientation = "gauche";
