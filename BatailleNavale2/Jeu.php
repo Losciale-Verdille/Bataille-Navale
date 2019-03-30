@@ -1,5 +1,4 @@
 <?php
-	//A integrer dans le vrai jeu.php
 	session_start();
 	$_SESSION["joueur"] = $_POST["joueur"];
 
@@ -11,10 +10,8 @@
 		}
 		return $classement;
 	}
-
-
-
 ?>
+
 <!DOCTYPE html>
 	<head>
 		<meta charset="utf-8">
@@ -25,13 +22,22 @@
 	</head>
 	<body>
 		<div id=jeu></div>
-		<div id=score></div>
-	<?php $p=score_array("scores.csv");
-			arsort($p);
+		<div id=score>
+		<table>
+		<th>Place</th><th>Joueur</th><th>Victoire(s)</th>
+		<?php
+			$p=score_array("scores.csv");
+			arsort($p,SORT_NATURAL);
+			$i = 1;
 			foreach ($p as $key => $value) {
-				echo $key;
-			}
-			
+				$s = "<tr><td id='rank'>$i.</td>";
+				$s .= "<td id='p_rank'>$key</td>";
+				$s .= "<td id='v_rank'>$value</td></tr>";
+				echo $s;
+				$i++;
+			}	
 		?>
+		</table>
+		</div>
 	</body>
 </html>
