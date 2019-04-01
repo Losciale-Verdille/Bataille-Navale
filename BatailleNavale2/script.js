@@ -24,25 +24,46 @@ let case1=null;
 		}
 		texte+="</table>";
 		document.getElementById("jeu").innerHTML= texte;
+		//show();
 	}
 //-1=tiré; 0=rien; 1,2,...=bateau
 	function jouer(id){
 		if (edition) { // on place les bateaux?
 			if(case1 ==null){ // stocke la premiere case
 				case1=id;
+				document.getElementById(case1).style.backgroundColor = "green"; //indicateur pour les gens qui louchent...
 			}else{ // stoche la 2eme case
-				if ( Math.abs(id-case1)== flotte[current_edit].size-1) { //si longueur egale à celle du bateau qu'on pose en longueur
+				let save = []; // backup pour la vérification
+				let isFree = true; // stocke réussite ou échec de la vérification
+				if ((Math.abs(id-case1) == flotte[current_edit].size-1) && (Math.floor(id/10) == Math.floor(case1/10))) { //si longueur egale à celle du bateau qu'on pose en longueur ET sur la même ligne
 					console.log("longueur");
 					if (id<case1) { // intervertit au cas où on met les 2 cotes
 						case1=id;
 						id=case1+flotte[current_edit].size-1;
 					}
 					for (var i = case1; i <= id; i++) { // on met image + plateau a jour
-						plateau[i]=flotte[current_edit].id;
-						document.getElementById(i).style.backgroundColor = "grey";
+						//Début vérification superposition
+						save[save.length] = i;
+						if (plateau[i] == 0) {
+							plateau[i]=flotte[current_edit].id;
+							document.getElementById(i).style.backgroundColor = "grey";
+						}
+						else {
+							alert("Case(s) indisponible(s)!");
+							for (let j=0; j<save.length-1; j++) { //on reset les cases déjà animées
+								document.getElementById(save[j]).style.backgroundColor = "blue";
+								plateau[save[j]]=0;
+							}
+							document.getElementById(case1).style.backgroundColor = "green"; // on remet l'indicateur pour les poissons rouges
+							isFree = false;
+							break;
+						}
+						//Fin vérification superposition
 					}
-					current_edit++;
-					case1=null
+					if (isFree) {
+						current_edit++;
+						case1=null;
+					} //si !isFree on ne compte pas la clic et on conserve case1
 				}else if (Math.abs(id-case1)== (flotte[current_edit].size-1) *10) {//si longueur egale à celle du bateau qu'on pose en hauteur
 					console.log("hauteur");
 					if (id<case1) {
@@ -50,11 +71,26 @@ let case1=null;
 						id=case1+(flotte[current_edit].size-1)*10;
 					}
 					for (var i = case1; i <= id; i+=10) {
-						plateau[i]=flotte[current_edit].id;
-						document.getElementById(i).style.backgroundColor = "grey";
-					}	
-					case1=null
-					current_edit++;
+						save[save.length] = i;
+						if (plateau[i] == 0) {
+							plateau[i]=flotte[current_edit].id;
+							document.getElementById(i).style.backgroundColor = "grey";
+						}
+						else {
+							alert("Case(s) indisponible(s)!");
+							for (let j=0; j<save.length-1; j++) {
+								document.getElementById(save[j]).style.backgroundColor = "blue";
+								plateau[save[j]]=0;
+							}
+							document.getElementById(case1).style.backgroundColor = "green";
+							isFree = false;
+							break;
+						}
+					}
+					if (isFree) {
+						current_edit++;
+						case1=null;
+					}
 				}else{// position trop grand
 					alert("replace 2ème case");
 				}
@@ -62,14 +98,15 @@ let case1=null;
 					edition=false;
 				}
 			}
-			
-
+			show();
 		}else{
 			if (plateau[id]!=-1) {
 				if (plateau[id]!=0){
 					document.getElementById(id).innerHTML='<center><img src="Boom.png"><center>';
+					document.getElementById(id).style.backgroundColor = "white";
 				}else{
 					document.getElementById(id).innerHTML='<center><img src="rate.png"><center>';
+					document.getElementById(id).style.backgroundColor = "white";
 				}
 				plateau[id]=-1;
 			}
@@ -78,8 +115,12 @@ let case1=null;
 			}
 		}
 	}
-
-
+	//Affiche plateau[] sur le tableau (ne pas enlever tant que vérification pas 100% fiable)
+	function show() {
+		for (let i=0; i<plateau.length; i++) {
+			document.getElementById(i).innerHTML = plateau[i];
+		}
+	}
 
 
 window.onload = genereTableau;
