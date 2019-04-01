@@ -1,7 +1,6 @@
 <?php
 	session_start();
 	$_SESSION["joueur"] = $_POST["joueur"];
-
 	function score_array($file) {
 		$classement = array();
 		foreach (file($file) as $line) {
