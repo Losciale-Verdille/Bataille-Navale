@@ -1,0 +1,24 @@
+.td {
+	border:solid 3px black;
+	background-position: center center;
+	background-color: blue;
+	width: 60px;
+	min-width: 60px;
+	height: 60px;
+}
+
+.table {
+	width: 660px;
+	height:660px;
+	max-width: 660px;
+	max-height: 660px;
+	border: solid 3px black;
+	border-collapse: collapse;
+}
+
+#jeu {float: left;}
+#score {margin-left: 700px;}
+#score td {border-bottom: solid 2px grey;}
+/*td#rank {min-width:60 px;}
+td#p_rank {min-width:100 px;}
+td#v_rank {min-width:100 px;}*/
