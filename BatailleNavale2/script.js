@@ -12,7 +12,6 @@ bt1.id=1; bt2.id=2; bt3.id=3; bt4.id=4; bt5.id=5; bt6.id =6;
 let flotte=[bt1,bt2,bt3,bt4,bt5,bt6];
 let current_edit = 0; //stocker l'id du bateau en train d'être placé
 let case1=null;
-let case2=null;
 	
 	function genereTableau(){
 		let texte="<table class='table'>";
@@ -25,10 +24,10 @@ let case2=null;
 		}
 		texte+="</table>";
 		document.getElementById("jeu").innerHTML= texte;
-		//show();
 	}
 //-1=tiré; 0=rien; 1,2,...=bateau
-	function jouer(id){
+
+function jouer(id){
 		if (edition) { // on place les bateaux en 2 clics
 			if(case1 == null){ // stocke la premiere case cliquée
 				if (plateau[id]==0) {				
@@ -160,13 +159,13 @@ let case2=null;
 				alert("refaire");
 			}
 		}
-	}
-	//Affiche plateau[] sur le tableau (ne pas enlever tant que vérification pas 100% fiable)
+}
+
 	function show() {
 		for (let i=0; i<plateau.length; i++) {
 			document.getElementById(i).innerHTML = plateau[i];
 		}
-	}
+}
 
 
 window.onload = genereTableau;
