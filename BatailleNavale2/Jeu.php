@@ -22,7 +22,7 @@
 		while($current_edit !=6){
 			$indice=rand(0,99);
 			$direction=rand(0,1); //0 ou 1
-			if ($direction && $indice%10<6){
+			if ($direction && $indice%10<11-$size[$current_edit]){
 				for ($i=$indice ; $i <$indice+$size[$current_edit]; $i++) {
 					$advsersaire[$i]=$current_edit+1;
 				}
@@ -49,7 +49,8 @@
 		echo $texte;
 		return $advsersaire;
 	}
-	$ordi=Tableauordi();
+	$_SESSION["ordi"]=Tableauordi();
+
 ?>
 
 <!DOCTYPE html>
