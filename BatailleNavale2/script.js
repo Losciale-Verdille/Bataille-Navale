@@ -69,11 +69,13 @@ let case1=null;
 									break;
 								}
 								//Fin vérification superposition
-								document.getElementById(case1).style.backgroundColor = "blue";
-								document.getElementById(id).innerHTML='<center><img src="gauche.png"></center>';
-								document.getElementById(case1).innerHTML='<center><img src="droite.png"></center>';
-								for (var z = id+1; z < id+(flotte[current_edit].size-1); z++) {
-									document.getElementById(z).innerHTML='<center><img src="mil.png"></center>';
+								if (isFree) {
+									document.getElementById(case1).style.backgroundColor = "blue";
+									document.getElementById(id).innerHTML='<center><img src="gauche.png"></center>';
+									document.getElementById(case1).innerHTML='<center><img src="droite.png"></center>';
+									for (var z = id+1; z < id+(flotte[current_edit].size-1); z++) {
+										document.getElementById(z).innerHTML='<center><img src="mil.png"></center>';
+									}
 								}
 							}
 						}else {
@@ -95,11 +97,13 @@ let case1=null;
 									isFree = false;
 									break;
 								}
-								document.getElementById(case1).style.backgroundColor = "blue";
-								document.getElementById(case1).innerHTML='<center><img src="gauche.png"></center>';
-								document.getElementById(id).innerHTML='<center><img src="droite.png"></center>';
-								for (var z = case1+1; z < case1+(flotte[current_edit].size-1); z++) {
-									document.getElementById(z).innerHTML='<center><img src="mil.png"></center>';
+								if (isFree) {
+									document.getElementById(case1).style.backgroundColor = "blue";
+									document.getElementById(case1).innerHTML='<center><img src="gauche.png"></center>';
+									document.getElementById(id).innerHTML='<center><img src="droite.png"></center>';
+									for (var z = case1+1; z < case1+(flotte[current_edit].size-1); z++) {
+										document.getElementById(z).innerHTML='<center><img src="mil.png"></center>';
+									}
 								}
 								//Fin vérification superposition
 							}
@@ -128,11 +132,13 @@ let case1=null;
 									break;
 								}
 							}
-							document.getElementById(case1).style.backgroundColor = "blue";
-							document.getElementById(id).innerHTML='<center><img src="haut.png"></center>';
-							document.getElementById(case1).innerHTML='<center><img src="bas.png"></center>';
-							for (var i = id+10; i < id+(flotte[current_edit].size-1)*10; i+=10) {
-								document.getElementById(i).innerHTML='<center><img src="mili.png"></center>';
+							if (isFree) {
+								document.getElementById(case1).style.backgroundColor = "blue";
+								document.getElementById(id).innerHTML='<center><img src="haut.png"></center>';
+								document.getElementById(case1).innerHTML='<center><img src="bas.png"></center>';
+								for (var i = id+10; i < id+(flotte[current_edit].size-1)*10; i+=10) {
+									document.getElementById(i).innerHTML='<center><img src="mili.png"></center>';
+								}
 							}
 						}else {
 							console.log("BAS");
@@ -151,11 +157,13 @@ let case1=null;
 									break;
 								}
 							}
-							document.getElementById(case1).style.backgroundColor = "blue";
-							document.getElementById(case1).innerHTML='<center><img src="haut.png"></center>';
-							document.getElementById(id).innerHTML='<center><img src="bas.png"></center>';
-							for (var i = case1+10; i < case1+(flotte[current_edit].size-1)*10; i+=10) {
-								document.getElementById(i).innerHTML='<center><img src="mili.png"></center>';
+							if (isFree) {
+								document.getElementById(case1).style.backgroundColor = "blue";
+								document.getElementById(case1).innerHTML='<center><img src="haut.png"></center>';
+								document.getElementById(id).innerHTML='<center><img src="bas.png"></center>';
+								for (var i = case1+10; i < case1+(flotte[current_edit].size-1)*10; i+=10) {
+									document.getElementById(i).innerHTML='<center><img src="mili.png"></center>';
+								}
 							}
 						}
 						if (isFree) {
