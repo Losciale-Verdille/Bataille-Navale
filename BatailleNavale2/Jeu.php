@@ -1,6 +1,7 @@
 <?php
 	session_start();
 	$_SESSION["joueur"] = $_POST["joueur"];
+
 	function score_array($file) {
 		$classement = array();
 		foreach (file($file) as $line) {
@@ -14,43 +15,66 @@
 		$size=[5,4,3,3,2,2];
 		$current_edit=0;
 		$compteur=0;
-		$advsersaire=[];
-		while($compteur !=100){//remplir le plateau
-		$advsersaire[$compteur]=0;
-		$compteur++;
+		$adversaire=[];
+
+		//On initialise le tableau de l'ordi
+		while($compteur !=100) {
+			$adversaire[$compteur]=0;
+			$compteur++;
 		}
+		$compteur = 0;
+
+		//Génération aléatoire de l'ordi
 		while($current_edit !=6){
 			$indice=rand(0,99);
-			$direction=rand(0,1); //0 ou 1
-			if ($direction && $indice%10<11-$size[$current_edit]){
+			$direction=rand(0,1); //0=hauteur ou 1=longueur
+			$isFree = true; // État de la vérificiation en cas de superposition
+			//Placement du bateau dans le sens de la longueur
+			if ($direction && $indice%10<11-$size[$current_edit] && $indice+$size[$current_edit]<100) {
 				for ($i=$indice ; $i <$indice+$size[$current_edit]; $i++) {
-					$advsersaire[$i]=$current_edit+1;
+					if ($adversaire[$i] == 0) $adversaire[$i]=$current_edit+1;
+					else {// on reset et on verrouille l'incrémentation du compteur d'édition
+						$isFree = false;
+						while($compteur !=100) {
+							if ($adversaire[$compteur] == $current_edit+1) $adversaire[$compteur] = 0;
+							$compteur++;
+						}
+						$compteur = 0;
+						break;
+					}	
 				}
-				$current_edit++;
-			}else if(!$direction && $indice<($size[$current_edit]+1)*10-1){
+				if ($isFree) $current_edit++;
+			//Placement du bateau dans le sens de la hauteur
+			}else if(!$direction && $indice<($size[$current_edit]+1)*10-1 && $indice+($size[$current_edit])*10<100) {
 				for ( $i=$indice ; $i <$indice+($size[$current_edit])*10; $i+=10) {
-					$advsersaire[$i]=$current_edit+1;
+					if ($adversaire[$i] == 0) $adversaire[$i]=$current_edit+1;
+					else {// on reset et on verrouille l'incrémentation du compteur
+						$isFree=false;
+						while($compteur !=100){
+							if ($adversaire[$compteur] == $current_edit+1) $adversaire[$compteur]=0;
+							$compteur++;
+						}
+						$compteur = 0;
+						break;
+					}
 				}
-				$current_edit++;
-			}
-
+				if ($isFree) $current_edit++;
+			}	
 		}
 		$current_edit=0;
 		//provisoire
 		$texte="";
 		for ($i = 0; $i <10; $i++) {
-
 			for ($j = 0; $j < 10; $j++) {
-				$texte.=$advsersaire[$i*10+$j].",";
+				$texte.=$adversaire[$i*10+$j].",";
 			}
 			$texte.="<br>";
 			
 		}
 		echo $texte;
-		return $advsersaire;
+		return $adversaire;
 	}
 	$_SESSION["ordi"]=Tableauordi();
-
 ?>
 
 <!DOCTYPE html>
