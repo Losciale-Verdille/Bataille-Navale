@@ -5,6 +5,7 @@
 	let gagne=0;
 	let handler=0;
 	let tour=1;
+	let reussi=0;//19 max
 	while(plateau.length !=100){//remplir le plateau
 		plateau[compteur]=0;
 		compteur++;
@@ -38,7 +39,7 @@
 //-1=tiré; 0=rien; 1,2,...=bateau
 
 	function jouer(id){
-		if (!gagne && handler!= null) {
+		if ((!gagne) && handler!= null) {
 			if (edition) { // on place les bateaux en 2 clics
 				if(case1 == null){ // stocke la premiere case cliquée
 					if (plateau[id]==0) {				
@@ -204,6 +205,9 @@
 				gagne=0;
 			}
 		}
+		if (gagne) {
+			onWin("Vous avez perdu...");
+		}
 	}
 
 	function miseajourplayer(){ 
@@ -264,6 +268,10 @@
 		}
 	}
 
+	function onWin(msg){
+		document.getElementById("resultat").innerHTML=msg;
+	}
+
 	function sucess(request){
 		let id= request.responseURL.split("=")[1];
 		console.log(id);
@@ -272,13 +280,21 @@
 		if (plateaujouer[id]!=-1 && plateaujouer[id]!=-2) {
 					if (result!=0){
 						document.getElementById(id).innerHTML='<center><img src="Boom.png"></center>';
+						reussi++;
 						plateaujouer[id]=-1;
+						if (reussi==19) {
+							console.log("ok");
+							gagne=1;
+							onWin("Vous avez gagné");
+						}
 					}else{
 						document.getElementById(id).innerHTML='<center><img src="rate.png"></center>';
 						plateaujouer[id]=-2;
 					}
-					handler=null;
-					setTimeout(miseajourplayer,1000);
+					if (!gagne) {
+						handler=null;
+						setTimeout(miseajourplayer,1000);
+					}
 				}
 				else{
 					alert("refaire");
