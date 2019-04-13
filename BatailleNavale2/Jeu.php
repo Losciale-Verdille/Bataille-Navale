@@ -9,11 +9,10 @@
 		$classement = array();
 		foreach (file($file) as $line) {
 			$user_tab = explode(":",$line);
-			$classement[$user_tab[0]] = $user_tab[1];
+			$classement[$user_tab[1]] = $user_tab[2];
 		}
 		return $classement;
 	}
-	
 	function Tableauordi(){
 		$size=[5,4,3,3,2,2];
 		$current_edit=0;

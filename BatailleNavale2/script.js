@@ -196,8 +196,6 @@
 		}
 	}
 
-
-	
 	function checkgagne(tab){
 		gagne=1;
 		for(var place in tab){
@@ -221,13 +219,13 @@
 				document.getElementById(i).innerHTML='<center><img src="Boom.png"></center>';
 			}else if(num==-2){
 				document.getElementById(i).innerHTML='<center><img src="rate.png"></center>';
-			}else if(num==plateau[i+1]&&num!=0 &&num!=-1 &&num!=-2 &&(plateau[i-1]==null||plateau[i-1]==0 || plateau[i-1]==-1||plateau[i-1]==-2)){
+			}else if(num==plateau[i+1]&&num!=0 &&num!=-1 &&num!=-2 &&(plateau[i-1]!=num)){
 				document.getElementById(i).innerHTML='<center><img src="gauche.png"></center>';
-			}else if(num==plateau[i-1]&&num!=0 &&num!=-1 &&num!=-2 &&(plateau[i+1]==null||plateau[i+1]==0 || plateau[i+1]==-1||plateau[i+1]==-2)){
+			}else if(num==plateau[i-1]&&num!=0 &&num!=-1 &&num!=-2 &&(plateau[i+1]!=num)){
 				document.getElementById(i).innerHTML='<center><img src="droite.png"></center>';
-			}else if(num==plateau[i-10]&&num!=0 &&num!=-1 &&num!=-2 &&(plateau[i+10]==null||plateau[i+10]==0 || plateau[i+10]==-1||plateau[i+10]==-2)){
+			}else if(num==plateau[i-10]&&num!=0 &&num!=-1 &&num!=-2 &&(plateau[i+10]!=num)){
 				document.getElementById(i).innerHTML='<center><img src="bas.png"></center>';
-			}else if(num==plateau[i+10]&&num!=0 &&num!=-1 &&num!=-2 &&(plateau[i-10]==null||plateau[i-10]==0 || plateau[i-10]==-1||plateau[i-10]==-2)){
+			}else if(num==plateau[i+10]&&num!=0 &&num!=-1 &&num!=-2 &&(plateau[i-10]!=num)){
 				document.getElementById(i).innerHTML='<center><img src="haut.png"></center>';
 			}else if(num==plateau[i+1]){
 				document.getElementById(i).innerHTML='<center><img src="mil.png"></center>';
@@ -269,7 +267,7 @@
 	}
 
 	function onWin(msg){
-		document.getElementById("resultat").innerHTML=msg;
+		document.getElementById("resultat").innerHTML=msg +"<a href='Jeu.php'>Recommencer</a>";
 	}
 
 	function sucess(request){
@@ -286,6 +284,7 @@
 							console.log("ok");
 							gagne=1;
 							onWin("Vous avez gagné");
+							new simpleAjax("score.php", "post", "",vasy);
 						}
 					}else{
 						document.getElementById(id).innerHTML='<center><img src="rate.png"></center>';
@@ -300,7 +299,9 @@
 					alert("refaire");
 				}
 	}
-
+	function vasy(request){
+		console.log(request);
+	}
 	function show() {
 		for (let i=0; i<plateau.length; i++) {
 			document.getElementById(i).innerHTML = plateau[i];
