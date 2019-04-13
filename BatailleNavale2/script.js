@@ -229,11 +229,12 @@
 				document.getElementById(i).innerHTML='<center><img src="mil.png"></center>';
 			}else if(num==plateau[i+10]){
 				document.getElementById(i).innerHTML='<center><img src="mili.png"></center>';
+			}else{
+				document.getElementById(i).innerHTML='<center><img src="seul.png"></center>';
 			}
 		}
 		
 		checkgagne(plateau);
-		handler=null;
 		setTimeout(miseajourordi,1500);
 	}
 
@@ -276,7 +277,8 @@
 						document.getElementById(id).innerHTML='<center><img src="rate.png"></center>';
 						plateaujouer[id]=-2;
 					}
-					setTimeout(miseajourplayer,500);
+					handler=null;
+					setTimeout(miseajourplayer,1000);
 				}
 				else{
 					alert("refaire");
