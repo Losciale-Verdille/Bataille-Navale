@@ -1,24 +1,27 @@
-let plateau=[];
-let plateaujouer=[];
-let compteur=0;//remplir le plateau
-let edition=true; //pour placer les bateaux au debut
-let gagne=0
-while(plateau.length !=100){//remplir le plateau
-	plateau[compteur]=0;
-	compteur++;
-}
-compteur=0;
-while(plateaujouer.length !=100){//remplir le plateau
-	plateaujouer[compteur]=0;
-	compteur++;
-}
+	let plateau=[];
+	let plateaujouer=[];
+	let compteur=0;//remplir le plateau
+	let edition=true; //pour placer les bateaux au debut
+	let gagne=0;
+	let handler=0;
+	let tour=1;
+	while(plateau.length !=100){//remplir le plateau
+		plateau[compteur]=0;
+		compteur++;
+	}
+	compteur=0;
+	while(plateaujouer.length !=100){//remplir le plateau
+		plateaujouer[compteur]=0;
+		compteur++;
+	}
 
-let bt1 = new Object(); let bt2 = new Object(); let bt3 = new Object(); let bt4 = new Object(); let bt5 = new Object(); let bt6 = new Object();
-bt1.size = 5; bt2.size = 4; bt3.size = 3; bt4.size = 3; bt5.size = 2; bt6.size = 2; //longueur de chaque bateau
-bt1.id=1; bt2.id=2; bt3.id=3; bt4.id=4; bt5.id=5; bt6.id =6;
-let flotte=[bt1,bt2,bt3,bt4,bt5,bt6];
-let current_edit = 0; //stocker l'id du bateau en train d'être placé
-let case1=null;
+	let bt1 = new Object(); let bt2 = new Object(); let bt3 = new Object(); let bt4 = new Object(); let bt5 = new Object(); let bt6 = new Object();
+	bt1.size = 5; bt2.size = 4; bt3.size = 3; bt4.size = 3; bt5.size = 2; bt6.size = 2; //longueur de chaque bateau
+	bt1.id=1; bt2.id=2; bt3.id=3; bt4.id=4; bt5.id=5; bt6.id =6;
+	let flotte=[bt1,bt2,bt3,bt4,bt5,bt6];
+	let current_edit = 0; //stocker l'id du bateau en train d'être placé
+	let case1=null;
+
 	
 	function genereTableau(){
 		let texte="<table class='table'>";
@@ -35,7 +38,7 @@ let case1=null;
 //-1=tiré; 0=rien; 1,2,...=bateau
 
 	function jouer(id){
-		if (!gagne) {
+		if (!gagne && handler!= null) {
 			if (edition) { // on place les bateaux en 2 clics
 				if(case1 == null){ // stocke la premiere case cliquée
 					if (plateau[id]==0) {				
@@ -175,7 +178,7 @@ let case1=null;
 					}
 					if (current_edit==6) { // on joue après avoir mis les 6 bateaux
 						edition=false;
-						setTimeout(miseajourordi,1000);
+						setTimeout(miseajourordi,500);
 					}
 
 				}
@@ -184,23 +187,27 @@ let case1=null;
 				//show();
 			}else{
 				new simpleAjax("donnees.php", "get", "id="+id,sucess);
-				setTimeout(miseajourplayer,1000);
-			}	//setTimeout(miseajourordi,1000);
+				//setTimeout(miseajourplayer,1000);
+				
+			}	
+		}else{
+			console.log("fin");
 		}
 	}
 
 
 	
 	function checkgagne(tab){
-		gagne=0;
+		gagne=1;
 		for(var place in tab){
-			if (place==1 || place==2 ||place==3|| place==4 ||place==5|| place==6) {
-				gagne=1;
+			if (tab[place]==1 || tab[place]==2 ||tab[place]==3|| tab[place]==4 ||tab[place]==5|| tab[place]==6) {
+				gagne=0;
 			}
 		}
 	}
 
-	function miseajourplayer(){ // on voit le plateau du joueur
+	function miseajourplayer(){ 
+		coupOrdi();// on voit le plateau du joueur
 		for (let i = 0; i < 100; i++) {
 			let num=plateau[i];
 			
@@ -224,8 +231,26 @@ let case1=null;
 				document.getElementById(i).innerHTML='<center><img src="mili.png"></center>';
 			}
 		}
+		
+		checkgagne(plateau);
+		handler=null;
+		setTimeout(miseajourordi,1500);
 	}
-	function miseajourordi(){ // on voit le plateau de l'ordi
+
+	function coupOrdi(){
+		let coup=Math.floor(Math.random()*Math.floor(101));
+		while (plateau[coup]== -1 || plateau[coup]== -2){
+			coup=Math.floor(Math.random()*Math.floor(101));
+		}
+		if(plateau[coup]==0){
+			plateau[coup]=-2;
+		}else{
+			plateau[coup]=-1;	
+		}
+	}
+
+	function miseajourordi(){
+		handler=0; // on voit le plateau de l'ordi
 		for (let i = 0; i < 100; i++) {
 			let num=plateaujouer[i];
 			if (num==0) {
@@ -251,7 +276,7 @@ let case1=null;
 						document.getElementById(id).innerHTML='<center><img src="rate.png"></center>';
 						plateaujouer[id]=-2;
 					}
-					//tour=0;
+					setTimeout(miseajourplayer,500);
 				}
 				else{
 					alert("refaire");
