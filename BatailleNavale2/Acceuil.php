@@ -7,6 +7,7 @@
 		<meta charset="utf-8">
 		<title>Acceuil</title>
 		<meta name="author" content="Losciale-Verdille">
+		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 	<body>
 	<h1>Bataille Navale</h1>

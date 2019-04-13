@@ -16,8 +16,21 @@
 	border-collapse: collapse;
 }
 
-#jeu {float: left;}
-#score {margin-left: 700px;}
+body{
+	background-image: url("fond.jpg");
+}
+
+#jeu {
+	float: left;
+	margin-left: 250px;
+}
+#info {
+	font-size: 20px;
+	margin-left: 450px;
+}
+#score {
+	margin-left: 1100px;
+}
 #score td {border-bottom: solid 2px grey;}
 /*td#rank {min-width:60 px;}
 td#p_rank {min-width:100 px;}

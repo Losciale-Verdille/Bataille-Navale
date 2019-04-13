@@ -71,7 +71,6 @@
 			$texte.="<br>";
 			
 		}
-		echo $texte;
 		return $adversaire;
 	}
 
@@ -88,6 +87,7 @@
 		<script src="simpleajax.js"></script>
 	</head>
 	<body>
+		<div ><p id="info"></p></div>
 		<div id=jeu></div>
 		<div id=score>
 		<table>
