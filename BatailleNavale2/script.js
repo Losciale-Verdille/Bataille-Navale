@@ -6,6 +6,8 @@
 	let gagne=0;
 	let handler=0;
 	let reussi=0;//19 max
+	let coulé = []; //bateaux coulés du joueur (indice dans flotte)
+	//let couléA = [];
 	while(plateau.length !=100){//remplir le plateau
 		plateau[compteur]=0;
 		plateaujouer[compteur]=0
@@ -15,6 +17,7 @@
 	let bt1 = new Object(); let bt2 = new Object(); let bt3 = new Object(); let bt4 = new Object(); let bt5 = new Object(); let bt6 = new Object();
 	bt1.size = 5; bt2.size = 4; bt3.size = 3; bt4.size = 3; bt5.size = 2; bt6.size = 2; //longueur de chaque bateau
 	bt1.id=1; bt2.id=2; bt3.id=3; bt4.id=4; bt5.id=5; bt6.id =6;
+	bt1.xy=[];bt2.xy=[];bt3.xy=[];bt4.xy=[];bt5.xy=[];bt6.xy=[];
 	let flotte=[bt1,bt2,bt3,bt4,bt5,bt6];
 	let current_edit = 0; //stocker l'id du bateau en train d'être placé
 	let case1=null;
@@ -31,7 +34,7 @@
 		}
 		texte+="</table>";
 		document.getElementById("jeu").innerHTML= texte;
-		document.getElementById("info").innerHTML="placez un bateau de "+flotte[current_edit].size+" cases";
+		document.getElementById("info").innerHTML="Placez un bateau de "+flotte[current_edit].size+" cases de long";
 	}
 //-1=tiré; 0=rien; 1,2,...=bateau
 
@@ -59,6 +62,7 @@
 		}
 		if (isFree) {
 			console.log("ook");
+			flotte[current_edit].xy=save;
 			document.getElementById(case1).style.backgroundColor = "blue";
 			document.getElementById(case2).style.backgroundColor = "blue";
 			if (increment==1) {
@@ -87,7 +91,7 @@
 		if (isFree) {
 			current_edit++;
 			if (current_edit<6) {
-				document.getElementById("info").innerHTML="placez un bateau de "+flotte[current_edit].size+" cases";
+				document.getElementById("info").innerHTML="Placez un bateau de "+flotte[current_edit].size+" cases";
 			}
 			return null;
 		}
@@ -111,11 +115,10 @@
 					}else if (Math.abs(id-case1)== (flotte[current_edit].size-1) *10) {//si longueur egale à celle du bateau qu'on pose en hauteur
 						case1=placement(case1,id,isFree,10);
 					}else{// position trop grand
-						alert("replace 2ème case");
+						alert("Dimension invalide!\nRéessayez");
 					}
 					console.log(case1);
 					if (current_edit==6) { // on joue après avoir mis les 6 bateaux
-
 						edition=false;
 						document.getElementById("info").innerHTML="A vous de jouer !";
 						setTimeout(miseajourordi,500);
@@ -169,7 +172,8 @@
 			}
 		}
 		checkgagne(plateau);
-		setTimeout(miseajourordi,1500);
+		checkCoulé(plateau);
+		setTimeout(miseajourordi,2000);
 	}
 
 	function coupOrdi(){
@@ -237,10 +241,11 @@
 				document.getElementById(i).innerHTML='<center><img src="rate.png"></center>';
 			}
 		}
+		//
 	}
 
 	function onWin(msg){
-		document.getElementById("resultat").innerHTML=msg +"<a href='Jeu.php'>Recommencer</a>";
+		document.getElementById("resultat").innerHTML=msg +"\n<a href='Jeu.php'>Recommencer</a>";
 	}
 
 	function sucess(request){
@@ -262,11 +267,33 @@
 					}
 					if (!gagne) {
 						handler=null;
-						setTimeout(miseajourplayer,1000);
+						setTimeout(miseajourplayer,500);
+						//checkCoulé(plateaujouer,"adv");
 					}
 				}
 				else{
 					alert("refaire");
 				}
+	}
+
+	function checkCoulé(tab) {
+		let check1 = true; let check2 = false;
+		for (let i=0; i<flotte.length; i++) {
+			for (let k=0; k<coulé.length; k++) {
+				if (i==coulé[k]) check1=false;
+			}
+			if (check1) {
+				bat = flotte[i];
+				for (let j=0; j<bat.xy.length; j++) {
+					if (tab[bat.xy[j]] != -1) check2 = false;
+				}
+				if (check2) {
+					alert("Votre bateau de taille "+bat.size+" a coulé!");
+					coulé[coulé.length] = i;
+				}
+				check2 = true;
+			}
+			check1 = true;
+		}
 	}
 window.onload = genereTableau;

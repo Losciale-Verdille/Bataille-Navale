@@ -1,10 +1,7 @@
 <?php
 	session_start();
-	if(!isset($_POST["joueur"])){
-		header("Location:Acceuil.php");
-		exit();
-	}
 	$_SESSION["joueur"] = $_POST["joueur"];
+
 	function score_array($file) {
 		$classement = array();
 		foreach (file($file) as $line) {
@@ -13,17 +10,20 @@
 		}
 		return $classement;
 	}
+	
 	function Tableauordi(){
 		$size=[5,4,3,3,2,2];
 		$current_edit=0;
 		$compteur=0;
 		$adversaire=[];
+
 		//On initialise le tableau de l'ordi
 		while($compteur !=100) {
 			$adversaire[$compteur]=0;
 			$compteur++;
 		}
 		$compteur = 0;
+
 		//Génération aléatoire de l'ordi
 		while($current_edit !=6){
 			$indice=rand(0,99);
@@ -71,9 +71,9 @@
 			$texte.="<br>";
 			
 		}
+		//echo $texte;
 		return $adversaire;
 	}
-
 	$_SESSION["ordi"]=Tableauordi();
 ?>
 
@@ -90,14 +90,16 @@
 		<div ><p id="info"></p></div>
 		<div id=jeu></div>
 		<div id=score>
-		<table>
-		<th>Place</th><th>Joueur</th><th>Victoire(s)</th>
+		<p><b><?php echo "Joueur : ".$_SESSION["joueur"]; ?></b></p>
+		<br>
+		<table id="classement">
+		<th></th><th>Joueur</th><th>Victoire(s)</th>
 		<?php
 			$p=score_array("scores.csv");
 			arsort($p,SORT_NATURAL);
 			$i = 1;
 			foreach ($p as $key => $value) {
-				$s = "<tr><td id='rank'>$i.</td>";
+				$s = "<tr><td id='rank'>$i</td>";
 				$s .= "<td id='p_rank'>$key</td>";
 				$s .= "<td id='v_rank'>$value</td></tr>";
 				echo $s;

@@ -27,3 +27,4 @@
 	}
 	echo mettreajour("scores.csv");
 ?>
+

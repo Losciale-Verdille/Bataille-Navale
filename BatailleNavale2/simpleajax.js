@@ -48,3 +48,4 @@ function simpleAjax(url,method,parameters,onSuccess,onFailure) {
 		this.xmlhttp.send(this.parameters);
 	}
 }
+

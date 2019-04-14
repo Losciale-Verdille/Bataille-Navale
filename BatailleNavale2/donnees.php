@@ -6,3 +6,4 @@
 	}
 	echo etatcase($_GET["id"]);
 ?>
+
