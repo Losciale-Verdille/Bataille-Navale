@@ -13,7 +13,7 @@
 		}
 		return $classement;
 	}
-	
+
 	function Tableauordi(){
 		$size=[5,4,3,3,2,2];
 		$current_edit=0;

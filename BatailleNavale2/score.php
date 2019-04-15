@@ -16,7 +16,7 @@
 			}
 		}
 		if (!$trouve) {
-			$classement[] = [$joueur,1];
+			$classement[] = [$joueur,(1)."\n"];
 		}
 		$texte="";
 		for ($i=0; $i <sizeof($classement) ; $i++) { 
