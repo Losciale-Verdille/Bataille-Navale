@@ -72,7 +72,7 @@
 			$texte.="<br>";
 			
 		}
-		//echo $texte;
+		echo $texte;
 		return $adversaire;
 	}
 	$_SESSION["ordi"]=Tableauordi();

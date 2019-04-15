@@ -1,4 +1,4 @@
-	let plateau=[];
+let plateau=[];
 	let plateaujouer=[];
 	let memoireordi=null;
 	let compteur=0;//remplir le plateau
