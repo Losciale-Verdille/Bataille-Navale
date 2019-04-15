@@ -1,7 +1,10 @@
 <?php
 	session_start();
+	if(!isset($_POST["joueur"])){
+		header("Location:Acceuil.php");
+		exit();
+	}
 	$_SESSION["joueur"] = $_POST["joueur"];
-
 	function score_array($file) {
 		$classement = array();
 		foreach (file($file) as $line) {
@@ -16,14 +19,12 @@
 		$current_edit=0;
 		$compteur=0;
 		$adversaire=[];
-
 		//On initialise le tableau de l'ordi
 		while($compteur !=100) {
 			$adversaire[$compteur]=0;
 			$compteur++;
 		}
 		$compteur = 0;
-
 		//Génération aléatoire de l'ordi
 		while($current_edit !=6){
 			$indice=rand(0,99);
