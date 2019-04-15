@@ -9,9 +9,9 @@
 			$user_tab = explode(":",$line);
 			$classement[$user_tab[0]] = [$user_tab[1],$user_tab[2]];
 		}
-		foreach ($classement as $key) {
-			if ($key[0]==$joueur) {
-				$key[1]+=1;
+		foreach ($classement as $key => $value) {
+			if ($value[0]==$joueur) {
+				$classement[$key][1]=($classement[$key][1]+1)."\n";
 				$trouve=1;
 			}
 		}
@@ -27,4 +27,3 @@
 	}
 	echo mettreajour("scores.csv");
 ?>
-
