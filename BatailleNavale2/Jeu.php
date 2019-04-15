@@ -88,8 +88,7 @@
 		<script src="simpleajax.js"></script>
 	</head>
 	<body>
-		<div ><p id="info"></p></div>
-		<div id=jeu></div>
+		<div id=jeu><p id="info"></div>
 		<div id=score>
 		<p><b><?php echo "Joueur : ".$_SESSION["joueur"]; ?></b></p>
 		<br>
