@@ -24,7 +24,7 @@ let plateau=[];
 
 	
 	function genereTableau(){
-		let texte="<table class='table'>";
+		let texte="<p id=\"info\"><table class='table'>";
 		for (let i = 0; i <10; i++) {
 			texte+="<tr>";
 			for (let j = 0;j<10; j++) {
