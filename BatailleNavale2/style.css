@@ -1,3 +1,4 @@
+/*****Plateau de jeu*****/
 .td {
 	border:solid 3px black;
 	background-position: center center;
@@ -16,8 +17,10 @@
 	border-collapse: collapse;
 }
 
+/*****Accueil*****/
 #legende {
-	width: 20px;
+	border: solid 1px black;
+	width: 18px;
 }
 
 hr {
@@ -33,6 +36,12 @@ hr {
 
 #start {float:left;}
 
+#start img {
+	width: 306px;
+	margin-top: 30px;
+}
+
+/*****Jeu*****/
 body{
 	background-image: url("fond.jpg");
 }
@@ -53,10 +62,18 @@ body{
 	font-size : 110%;
 	float: left;
 }
-#score #classement {background-color: rgba(125,125,125,0.7); color: white;}
+
+#score #classement {
+	background-color: rgba(125,125,125,0.7);
+	color: white;
+}
+
 #classement td:first-child {border: solid 2px black;}
+
 #classement td {border-bottom: solid 2px black;}
-tr {border-bottom: solid 2px black;}
+
 td#rank {width: 25px; text-align: center;}
+
 td#p_rank {width:120px; text-align: center;}
+
 td#v_rank {width:120px; text-align: right;}
