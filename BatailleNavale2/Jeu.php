@@ -5,6 +5,7 @@
 		exit();
 	}
 	$_SESSION["joueur"] = $_POST["joueur"];
+	
 	function score_array($file) {
 		$classement = array();
 		foreach (file($file) as $line) {
@@ -63,7 +64,7 @@
 			}	
 		}
 		$current_edit=0;
-		//provisoire
+		/*Permet de vérifier manuellement la génération de l'ordinateur
 		$texte="";
 		for ($i = 0; $i <10; $i++) {
 			for ($j = 0; $j < 10; $j++) {
@@ -72,7 +73,7 @@
 			$texte.="<br>";
 			
 		}
-		//echo $texte;
+		echo $texte;*/
 		return $adversaire;
 	}
 	$_SESSION["ordi"]=Tableauordi();
@@ -88,8 +89,7 @@
 		<script src="simpleajax.js"></script>
 	</head>
 	<body>
-		<div ><p id="info"></p></div>
-		<div id=jeu></div>
+		<div id=jeu><p id="info"></div>
 		<div id=score>
 		<p><b><?php echo "Joueur : ".$_SESSION["joueur"]; ?></b></p>
 		<br>
